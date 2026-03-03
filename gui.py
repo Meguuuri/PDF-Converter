@@ -12,13 +12,15 @@ class Oxpsapp:
         self.label.pack(padx=20, pady=20)
         self.btn = tk.Button(window, text = "Select File", command= self.start_thread, pady=10,padx=20)
         self.btn.pack(pady=20)
-        self.status = tk.Label(self.window, text = "Ready...", fg = "Black")
+        self.status_var = tk.StringVar(value= "Ready...")
+        self.status_label = tk.Label(self.window, textvariable=self.status_var, fg = "black", font=('Arial', 8))
+        self.status_label.pack(pady=20)
         self.window.mainloop()
     def start_thread(self):
         path = filedialog.askopenfilename(filetypes=[("OXPS", "*.oxps")])
         if path:
             self.btn.config(state="disabled")
-            self.status.config(text="Converting...", fg="Green")
+            self.status_var.set("Converting...")
             thread = th.Thread(target = self.process, args=(path,))
             thread.start()
     def process(self, path):
@@ -27,10 +29,10 @@ class Oxpsapp:
     def finish(self, success, result):
         self.btn.config(state="normal")
         if success:
-            self.status.config(text="File Converted Successfully!", fg="green")
+            self.status_var.set("File Converted Successfully!")
             messagebox.showinfo("Success", f"Saved to: {result}")
         else:
-            self.status.config(text="File Converted Unsuccessful", fg="red")
+            self.status_var.set("File Convertion Unsuccessful")
             messagebox.showerror("Error",result)
 
 if __name__ == "__main__":
