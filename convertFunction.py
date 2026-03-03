@@ -3,28 +3,20 @@ import os
 import shutil
 
 def oxpsConverter(input_path, output_path=None):
-    #1. Check if Path Exists 
     if not os.path.exists(input_path):
         print(f"Error: Could not find {input_path}")
         return
-
-    # 2. Setup Output Name: If no name provided, use the same name as input
     if output_path is None:
         output_path = os.path.splitext(input_path)[0] + ".pdf"
 
-    # 3. Identify the command
-    # On Windows, this is usually 'gxpswin64' or 'gxpswin32'
-    # On Linux/Mac, it is usually just 'gxps'
     executable = "gxpswin64" 
     
-    # Optional: Check if the executable is actually installed
+
     if shutil.which(executable) is None:
         print(f"Error: '{executable}' not found. Is GhostXPS installed and in your PATH?")
         return
 
-    # 4. The Conversion Command
-    # -sDEVICE=pdfwrite tells it we want a PDF
-    # -o is the output flag
+
     arguments = [
         executable,
         "-sDEVICE=pdfwrite",
@@ -34,7 +26,6 @@ def oxpsConverter(input_path, output_path=None):
     print(f"Converting {input_path}...")
 
     try:
-        # Run the process
         result = subprocess.run(arguments, capture_output=True, text=True, shell=True)
         
         if result.returncode == 0:
