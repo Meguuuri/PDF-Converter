@@ -12,7 +12,7 @@ class Oxpsapp:
         self.label.pack(padx=20, pady=20)
         self.btn = tk.Button(window, text = "Select File", command= self.start_thread, pady=10,padx=20)
         self.btn.pack(pady=20)
-        self.status = tk.Label(self.window, text = "", fg = "Black")
+        self.status = tk.Label(self.window, text = "Ready...", fg = "Black")
         self.window.mainloop()
     def start_thread(self):
         path = filedialog.askopenfilename(filetypes=[("OXPS", "*.oxps")])
