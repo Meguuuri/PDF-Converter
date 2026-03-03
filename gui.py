@@ -23,10 +23,10 @@ class Oxpsapp:
             thread.start()
     def process(self, path):
         success, result = oxpsConverter(path)
-        self.root.after(0, lambda: self.finish(success,result))
+        self.window.after(0, lambda: self.finish(success,result))
     def finish(self, success, result):
         self.btn.config(state="normal")
-        if sucesss:
+        if success:
             self.status.config(text="File Converted Successfully!", fg="green")
             messagebox.showinfo("Success", f"Saved to: {result}")
         else:

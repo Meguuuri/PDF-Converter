@@ -34,12 +34,12 @@ def oxpsConverter(input_path, output_path=None):
     print(f"Converting {input_path}...")
 
     try:
-        # Run the command and capture any errors
-        subprocess.run(arguments, check=True, capture_output=True, text=True)
-        print(f"Success! Created: {output_path}")
-    except subprocess.CalledProcessError as e:
-        print(f"Conversion failed. Error message:\n{e.stderr}")
-
-# --- Test it out ---
-if __name__ == "__main__":
-    oxpsConverter("CS 2613 QUIZ 1.oxps")
+        # Run the process
+        result = subprocess.run(arguments, capture_output=True, text=True, shell=True)
+        
+        if result.returncode == 0:
+            return True, output_path
+        else:
+            return False, result.stderr
+    except Exception as e:
+        return False, str(e)
