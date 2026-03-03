@@ -1,5 +1,5 @@
 import tkinter as tk
-from main import oxpsConverter
+from convertFunction import oxpsConverter
 from tkinter import filedialog, messagebox
 import threading as th
 class Oxpsapp:
@@ -16,9 +16,9 @@ class Oxpsapp:
         self.window.mainloop()
     def start_thread(self):
         path = filedialog.askopenfilename(filetypes=[("OXPS", "*.oxps")])
-        if file_path:
+        if path:
             self.btn.config(state="disabled")
-            self.status.config(text="Converting..." fg="Green")
+            self.status.config(text="Converting...", fg="Green")
             thread = th.Thread(target = self.process, args=(path,))
             thread.start()
     def process(self, path):
